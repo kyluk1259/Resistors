@@ -17,6 +17,7 @@ public class Resistors {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        int [] colours = new int[9]; 
     }
     
 }
