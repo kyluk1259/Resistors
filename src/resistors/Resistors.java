@@ -6,6 +6,7 @@
 package resistors;
 
 import javax.swing.JOptionPane;
+import java.math.*;
 
 /**
  *
@@ -18,10 +19,10 @@ public class Resistors {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[] colours = new int[9];
-        int a1, a2, resistance;
-        String c1, c2, c3, finalmix;
-        String[] mix = new String[]{};
+        int[] colours = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        String c1, c2, c3, finalmix, power;
+        String[] mix = new String[]{"", "", ""};
         String[] Text = new String[]{"BLACK", "BROWN", "RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "VIOLET", "GREY", "WHITE"};
 
         String window = JOptionPane.showInputDialog("What is your resistors colour code?" + "\n" + "Separate each colour by hyphens" + "\n" + "Ex. Red-Orange-Black");
@@ -31,24 +32,26 @@ public class Resistors {
         c3 = window.substring(window.lastIndexOf("-") + 1);
         String[] inputs = new String[]{c1, c2, c3};
         boolean input = true;
-        
-        if(input == true){
-        for (int i = 0; i <= 2; i++) {
-            for (int x = 0; x < colours.length; x++) {
-                if (inputs[0].equalsIgnoreCase(Text[x])) {
-                    mix[0] = Integer.toString(colours[x]);
-                } else if (inputs[1].equalsIgnoreCase(Text[x])) {
-                    mix[1] = Integer.toString(colours[x]);
-                } else if (inputs[2].equalsIgnoreCase(Text[x])) {
-                    a2 = (int) Math.pow(10, colours[x]);
+
+        try {
+            if (input == true) {
+                int a1, a2, resistance;
+                for (int i = 0; i <= 2; i++) {
+                    for (int x = 0; x < 9; x++) {
+                        if (inputs[i].equalsIgnoreCase(Text[x])) {
+                            mix[i] = Integer.toString(colours[x]);
+                            //System.out.print(mix[i]);
+                        }
+                    }
                 }
+                finalmix = mix[0] + mix[1];
+                a1 = Integer.parseInt(finalmix);
+                a2 = (int)(Math.pow(10, Integer.parseInt(mix[2])));
+                resistance = (a1*a2);
+                JOptionPane.showMessageDialog(null,"You entered: " + window + "\nThe value of the resistor is: " + resistance + "Ω");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        finalmix = mix[0] + mix[1];
-        a1 = Integer.parseInt(finalmix);
-       // resistance = a1 * a2;
-        }
-       
-        System.out.print(mix[0]);
     }
 }
